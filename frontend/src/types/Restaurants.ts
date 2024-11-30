@@ -5,6 +5,12 @@ export class Convert {
   static restaurantsToJson(value: Restaurant[]): string {
     return JSON.stringify(value);
   }
+  static toRestaurant(json: string): Restaurant {
+    return JSON.parse(json);
+  }
+  static restaurantToJson(value: Restaurant): string {
+    return JSON.stringify(value);
+  }
 }
 
 export interface Restaurant {

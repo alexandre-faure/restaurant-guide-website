@@ -3,7 +3,9 @@ dotenv.config();
 
 import Fastify from "fastify";
 import fastifyCors from "@fastify/cors";
-import restaurantsRoutes from "./routes/restaurants";
+import restaurantsRoute from "./routes/restaurants";
+import restaurantDetailRoute from "./routes/restaurantDetail";
+import photoRoute from "./routes/photo";
 
 dotenv.config();
 
@@ -15,7 +17,9 @@ server.register(fastifyCors, {
 });
 
 // Register routes
-server.register(restaurantsRoutes);
+server.register(restaurantsRoute);
+server.register(restaurantDetailRoute);
+server.register(photoRoute);
 
 const start = async () => {
   try {

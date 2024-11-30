@@ -1,9 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import "./index.css";
 import Home from "./pages/Home";
 import MainLayout from "./layouts/MainLayout";
+import RestaurantPage from "./pages/RestaurantPage";
+import About from "./pages/About";
+import Error404 from "./pages/Error404";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,6 +23,10 @@ root.render(
       <MainLayout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/restaurant/:id" element={<RestaurantPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/error404" element={<Error404 />} />
+          <Route path="*" element={<Navigate to="/error404" replace />} />
         </Routes>
       </MainLayout>
     </Router>

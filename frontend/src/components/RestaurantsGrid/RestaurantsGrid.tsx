@@ -18,7 +18,7 @@ const RestaurantsList: React.FC = () => {
   return (
     <div className="py-4">
       <h2 className="text-xl font-bold pb-4">Restaurants nearby</h2>
-      <div className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-around gap-5">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-around items-center gap-5">
         {restaurants.map((restaurant, id_restaurant) => (
           <RestaurantPreview key={id_restaurant} restaurant={restaurant} />
         ))}

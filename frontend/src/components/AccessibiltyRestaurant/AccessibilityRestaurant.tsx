@@ -19,12 +19,16 @@ const AccessibilityRestaurant: React.FC<RestaurantAccessibilityProps> = ({
   return (
     <>
       <span
+        className="cursor-pointer"
         onClick={(e) => accessibilityRef.current?.toggle(e)}
         onMouseLeave={(e) => accessibilityRef.current?.hide()}
       >
-        <span className="text-sm italic">Accessibility:</span>
-        {"  "}
-        <FaWheelchair className="inline" />
+        <span className="text-sm italic">
+          Accessibility
+          {"  "}
+          <FaWheelchair className="inline" />
+          {"  "}:
+        </span>
         {"  "}
         <FaDoorOpen
           className={`inline ${

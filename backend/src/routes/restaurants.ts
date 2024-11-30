@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 const API_URL = "https://places.googleapis.com/v1/places:searchNearby";
 const API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 
-export default async function restaurantsRoutes(fastify: FastifyInstance) {
+export default async function restaurantsRoute(fastify: FastifyInstance) {
   fastify.post(
     "/restaurants",
     {

@@ -13,6 +13,7 @@ const CostRestaurant: React.FC<RestaurantPriceProps> = ({ priceLevel }) => {
   return (
     <>
       <span
+        className="cursor-pointer"
         onClick={(e) => priceLevelRef.current?.toggle(e)}
         onMouseLeave={(e) => priceLevelRef.current?.hide()}
       >
