@@ -1,9 +1,9 @@
-import RestaurantsList from "../components/RestaurantsList/RestaurantsList";
+import RestaurantsGrid from "../components/RestaurantsGrid/RestaurantsGrid";
 
 const Home: React.FC = () => {
   return (
     <div>
-      <RestaurantsList />
+      <RestaurantsGrid />
     </div>
   );
 };

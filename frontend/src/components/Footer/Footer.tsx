@@ -4,7 +4,7 @@ import whiteLogo from "../../assets/images/logo500-white.png";
 const Footer: React.FC = () => {
   return (
     <footer className="mt-auto shadow-md">
-      <div className="grid sm:grid-cols-3 grid-cols-1 bg-zinc-800 text-zinc-100 sm:gap-10 gap-4 px-6 py-8">
+      <div className="grid sm:grid-cols-3 grid-cols-1 bg-zinc-800 text-zinc-100 sm:gap-10 gap-4 px-6 py-8 z-40">
         <div>
           <div className="flex flex-row items-center gap-2 sm:justify-start justify-center">
             <div>

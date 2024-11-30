@@ -17,6 +17,7 @@
   "author": "Alexandre Faure",
   "license": "GNU",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "primereact": "^10.8.5",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.1",

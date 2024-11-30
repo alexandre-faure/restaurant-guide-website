@@ -38,13 +38,6 @@ export default async function restaurantsRoutes(fastify: FastifyInstance) {
           maxResults: number;
         };
 
-        console.log("Fetching restaurants with params:", {
-          latitude,
-          longitude,
-          radius,
-          maxResults,
-        });
-
         // Build the POST request payload
         const payload = {
           includedTypes: ["restaurant"],
@@ -63,7 +56,8 @@ export default async function restaurantsRoutes(fastify: FastifyInstance) {
           headers: {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": API_KEY,
-            "X-Goog-FieldMask": "places.displayName",
+            "X-Goog-FieldMask":
+              "places.name,places.displayName,places.location,places.googleMapsUri,places.accessibilityOptions,places.photos,places.formattedAddress,places.regularOpeningHours,places.priceLevel,places.rating,places.userRatingCount,places.websiteUri",
           },
           body: JSON.stringify(payload),
         });
@@ -75,8 +69,6 @@ export default async function restaurantsRoutes(fastify: FastifyInstance) {
 
         // Parse the response from Google API
         const data = await response.json();
-
-        console.log("Fetched restaurants:", data);
 
         // Return the fetched places
         return reply.status(200).send(data);

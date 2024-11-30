@@ -1,4 +1,5 @@
 import config from "../config";
+import { Convert } from "../types/Restaurants";
 
 const apiBaseUrl = config.apiBaseUrl;
 
@@ -34,7 +35,13 @@ export const fetchRestaurants = async (params: RestaurantQueryParams) => {
 
     const data = await response.json();
 
-    return data;
+    if (!data || !data.places || !Array.isArray(data.places)) {
+      throw new Error("Invalid response from server");
+    }
+
+    const restaurants = Convert.toRestaurants(JSON.stringify(data.places));
+
+    return restaurants;
   } catch (error) {
     console.error("Error fetching restaurants:", error);
     throw error;
