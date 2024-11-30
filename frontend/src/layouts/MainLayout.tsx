@@ -1,14 +1,21 @@
+import Footer from "../components/Footer/Footer";
+import Nav from "../components/Nav/Nav";
+
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div>
-      {/* Add your header component here */}
-      <header>{/* Add your header content */}</header>
+    <div className="min-h-screen flex flex-col">
+      <Nav />
+      <header className="pt-6 px-5">
+        <h1 className="text-xl font-bold font-medium">
+          Welcome to <span className="font-bold">ScandiBites</span>, the
+          Restaurant Guide Website!
+        </h1>
+        <p className="italic">Explore the best restaurants in your area.</p>
+      </header>
 
-      {/* Add your main content */}
-      <main>{children}</main>
+      <main className="p-5">{children}</main>
 
-      {/* Add your footer component here */}
-      <footer>{/* Add your footer content */}</footer>
+      <Footer />
     </div>
   );
 };
