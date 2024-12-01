@@ -23,12 +23,6 @@ const PhotosGallery: React.FC<{ photos: Photo[] }> = ({ photos }) => {
         return;
       }
 
-      const apiKey = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
-      if (!apiKey) {
-        console.error("API Key is missing!");
-        return;
-      }
-
       try {
         const photoUris = await Promise.all(
           photos.map(async (photo) => {

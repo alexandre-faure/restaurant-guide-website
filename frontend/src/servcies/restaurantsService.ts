@@ -33,6 +33,10 @@ export const fetchRestaurants = async (params: RestaurantQueryParams) => {
       throw new Error(`Failed to fetch restaurants: ${response.statusText}`);
     }
 
+    if (response.status === 204) {
+      return [];
+    }
+
     const data = await response.json();
 
     if (!data || !data.places || !Array.isArray(data.places)) {

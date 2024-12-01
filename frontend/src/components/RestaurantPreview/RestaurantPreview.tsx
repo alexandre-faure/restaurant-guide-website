@@ -16,14 +16,8 @@ const RestaurantPreview: React.FC<{
   const [photoUrl, setPhotoUrl] = useState<string>("");
 
   useEffect(() => {
-    // Declare an async function within the useEffect hook
     const loadPhoto = async () => {
       if (restaurant.photos && restaurant.photos.length > 0) {
-        const apiKey = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
-        if (!apiKey) {
-          console.error("API Key is missing!");
-          return;
-        }
         const photo = restaurant.photos[0];
         try {
           const photoUri = await fetchPhotoUrl(photo.name, 300, 300);
@@ -76,13 +70,17 @@ const RestaurantPreview: React.FC<{
             </div>
             <div className="flex justify-between">
               <div>
-                <CostRestaurant priceLevel={restaurant.priceLevel} />
+                {restaurant.priceLevel && (
+                  <CostRestaurant priceLevel={restaurant.priceLevel} />
+                )}
               </div>
               <div>
-                <RatingRestaurant
-                  rating={restaurant.rating}
-                  userRatingCount={restaurant.userRatingCount}
-                />
+                {restaurant.rating && restaurant.userRatingCount && (
+                  <RatingRestaurant
+                    rating={restaurant.rating}
+                    userRatingCount={restaurant.userRatingCount}
+                  />
+                )}
               </div>
             </div>
           </div>

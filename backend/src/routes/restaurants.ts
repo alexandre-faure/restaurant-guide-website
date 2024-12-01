@@ -69,7 +69,9 @@ export default async function restaurantsRoute(fastify: FastifyInstance) {
 
         // Parse the response from Google API
         const data = await response.json();
-
+        if (!data.places || data.places.length === 0) {
+          return reply.status(204).send([]);
+        }
         // Return the fetched places
         return reply.status(200).send(data);
       } catch (error) {

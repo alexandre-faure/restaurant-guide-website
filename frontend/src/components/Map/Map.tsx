@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import L, { LatLngTuple } from "leaflet";
+import L from "leaflet";
 import { LatLngBoundsExpression } from "leaflet";
 import {
   MapContainer,
@@ -9,9 +9,9 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
-import { Restaurant } from "../types/Restaurants";
-import pinIcon from "../assets/images/pin.png";
-import activePinIcon from "../assets/images/activePin.png";
+import { Restaurant } from "../../types/Restaurants";
+import pinIcon from "../../assets/images/pin.png";
+import activePinIcon from "../../assets/images/activePin.png";
 
 const activePin = new L.Icon({
   iconUrl: activePinIcon,
@@ -30,7 +30,14 @@ const FitBoundsMap: React.FC<{
   activeRestaurant: string | null;
   setActiveRestaurant: (id: string) => void;
   setLocation: (location: { latitude: number; longitude: number }) => void;
-}> = ({ restaurants, activeRestaurant, setActiveRestaurant, setLocation }) => {
+  location: { latitude: number; longitude: number };
+}> = ({
+  restaurants,
+  activeRestaurant,
+  setActiveRestaurant,
+  setLocation,
+  location,
+}) => {
   const [changeLocationActive, setChangeLocationActive] = useState(false);
 
   const bounds: LatLngBoundsExpression = restaurants.map((restaurant) => [
@@ -44,6 +51,8 @@ const FitBoundsMap: React.FC<{
     useEffect(() => {
       if (bounds.length > 0) {
         map.fitBounds(bounds, { padding: [50, 50] });
+      } else {
+        map.setView([location.latitude, location.longitude], 13);
       }
     }, [bounds, map]);
 
@@ -94,6 +103,7 @@ const FitBoundsMap: React.FC<{
         <LocationMarker
           setLocation={setLocation}
           changeLocationActive={changeLocationActive}
+          setChangeLocationActive={setChangeLocationActive}
         />
         <FitBoundsComponent />
       </MapContainer>
@@ -106,7 +116,8 @@ export default FitBoundsMap;
 const LocationMarker: React.FC<{
   setLocation: (location: { latitude: number; longitude: number }) => void;
   changeLocationActive: boolean;
-}> = ({ setLocation, changeLocationActive }) => {
+  setChangeLocationActive: (active: boolean) => void;
+}> = ({ setLocation, changeLocationActive, setChangeLocationActive }) => {
   const map = useMapEvents({
     click(e) {
       const { lat, lng } = e.latlng;
@@ -114,6 +125,7 @@ const LocationMarker: React.FC<{
         return;
       }
       setLocation({ latitude: lat, longitude: lng });
+      setChangeLocationActive(false);
     },
   });
 

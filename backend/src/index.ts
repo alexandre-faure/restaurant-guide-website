@@ -13,7 +13,7 @@ const server = Fastify({ logger: true });
 
 // Register CORS plugin
 server.register(fastifyCors, {
-  origin: ["http://localhost:3000"],
+  origin: ["http://localhost", "http://localhost:3000", "http://localhost:80"],
 });
 
 // Register routes
@@ -23,7 +23,7 @@ server.register(photoRoute);
 
 const start = async () => {
   try {
-    await server.listen({ port: 5000 });
+    await server.listen({ port: 5000, host: "0.0.0.0" });
     console.log("Server is running on http://localhost:5000");
   } catch (err) {
     server.log.error(err);

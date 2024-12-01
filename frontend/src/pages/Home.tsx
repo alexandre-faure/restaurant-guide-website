@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import RestaurantsGrid from "../components/RestaurantsGrid/RestaurantsGrid";
-import Map from "../Map/Map";
+import Map from "../components/Map/Map";
 import { fetchRestaurants } from "../servcies/restaurantsService";
 import { Restaurant } from "../types/Restaurants";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -15,13 +16,19 @@ const Home: React.FC = () => {
     longitude: 18.0695,
   });
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchRestaurants({
       ...location,
       radius: 500,
-    }).then((data) => {
-      setRestaurants(data);
-    });
+    })
+      .then((data) => {
+        setRestaurants(data);
+      })
+      .catch((error) => {
+        navigate("/error500", { state: { error } });
+      });
   }, [location]);
 
   return (
@@ -45,9 +52,15 @@ const Home: React.FC = () => {
               activeRestaurant={activteRestaurant}
               setActiveRestaurant={setActivteRestaurant}
               setLocation={setLocation}
+              location={location}
             />
           </div>
           <div className="h-full md:w-7/12 md:h-auto">
+            {restaurants.length === 0 && (
+              <p className="text-lg font-medium italic text-center">
+                No restaurants found, please try another location.
+              </p>
+            )}{" "}
             <RestaurantsGrid
               restaurants={restaurants}
               activeRestaurant={activteRestaurant}
