@@ -5,14 +5,14 @@ import CostRestaurant from "../CostRestorant/CostRestaurant";
 import RatingRestaurant from "../RatingRestaurant/RatingRestaurant";
 import { Link } from "react-router-dom";
 import { fetchPhotoUrl } from "../../servcies/restaurantsService";
+import styles from "./RestaurantPreview.module.css";
 
-interface RestaurantPreviewProps {
+const RestaurantPreview: React.FC<{
   restaurant: Restaurant;
-}
-
-const RestaurantPreview: React.FC<RestaurantPreviewProps> = ({
-  restaurant,
-}) => {
+  isActive: boolean;
+  setActive: () => void;
+  setLeave: () => void;
+}> = ({ restaurant, isActive, setActive, setLeave }) => {
   const [photoUrl, setPhotoUrl] = useState<string>("");
 
   useEffect(() => {
@@ -40,15 +40,19 @@ const RestaurantPreview: React.FC<RestaurantPreviewProps> = ({
   return (
     <Link to={`/restaurant/${restaurant.name.split("/")[1]}`}>
       <div
-        className="flex flex-col
-      h-72 w-60
-      bg-sky-50 hover:bg-sky-100
-    border border-sky-200 rounded-md shadow-md hover:shadow-lg
-    cursor-pointer
-    hover:scale-[1.05] transition"
+        className={`flex flex-col
+          h-72 w-60
+          bg-sky-50
+          border border-sky-200 rounded-md shadow-md
+          cursor-pointer transition
+          ${styles.restaurantPreviewContainer}
+          ${isActive ? styles.active : ""}
+          `}
+        onMouseEnter={setActive}
+        onMouseLeave={setLeave}
       >
         <div
-          className="rounded-t-md overflow-hidden  min-h-24 bg-center bg-cover"
+          className={`rounded-t-md overflow-hidden  min-h-24 bg-center bg-cover transition ${styles.RestaurantPreviewImage}`}
           style={{ backgroundImage: `url(${photoUrl})` }}
         ></div>
         <div className="py-2 px-4 flex flex-col justify-stretch h-full">
@@ -62,11 +66,13 @@ const RestaurantPreview: React.FC<RestaurantPreviewProps> = ({
           </div>
           <div>
             <div>
-              <div className="text-left">
-                <AccessibilityRestaurant
-                  accessibilityOptions={restaurant.accessibilityOptions}
-                />
-              </div>
+              {restaurant.accessibilityOptions && (
+                <div className="text-left">
+                  <AccessibilityRestaurant
+                    accessibilityOptions={restaurant.accessibilityOptions}
+                  />
+                </div>
+              )}
             </div>
             <div className="flex justify-between">
               <div>

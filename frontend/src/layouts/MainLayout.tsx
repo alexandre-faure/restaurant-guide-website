@@ -6,7 +6,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div className="min-h-screen flex flex-col">
       <Nav />
 
-      <main className="mx-10 py-5">{children}</main>
+      <main className="mx-2 sm:mx-5 md:mx-10 py-10">{children}</main>
 
       <Footer />
     </div>

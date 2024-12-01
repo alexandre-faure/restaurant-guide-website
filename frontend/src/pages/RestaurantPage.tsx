@@ -8,7 +8,7 @@ import PhotosGallery from "../components/PhotosGallery/PhotosGallery";
 const RestaurantPage: React.FC = () => {
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const navigate = useNavigate();
-  const { id } = useParams(); // Retrieve `id` from URL parameters
+  const { id } = useParams();
 
   useEffect(() => {
     const loadRestaurant = async () => {
@@ -20,26 +20,28 @@ const RestaurantPage: React.FC = () => {
         setRestaurant(data);
       } catch (error) {
         console.error("Error loading restaurant:", error);
-        navigate("/error404", { replace: true }); // Redirect to /error404 on failure
+        navigate("/error404", { replace: true });
       }
     };
 
     loadRestaurant();
-  }, [id, navigate]); // Add dependencies to prevent infinite re-renders
+  }, [id, navigate]);
 
   if (!restaurant) {
-    return <p>Loading...</p>; // Render loading state while fetching data
+    return <p>Loading...</p>;
   }
 
   return (
     <div>
-      <div className="w-full bg-sky-50 border border-sky-200 rounded-md shadow-md max-h-[80vh]">
-        <div className="flex flex-col sm:flex-row">
-          <div className="sm:w-5/12 bg-zinc-900 rounded-l">
+      <div className="w-full bg-sky-50 border border-sky-200 rounded-md shadow-md sm:h-[70vh]">
+        <div className="flex flex-col sm:flex-row h-full">
+          <div className="sm:w-5/12 bg-zinc-900 rounded-l h-full">
             <PhotosGallery photos={restaurant.photos} />
           </div>
-          <div className="sm:w-7/12 overflow-y-scroll">
-            <RestaurantInfos restaurant={restaurant} />
+          <div className="sm:w-7/12 sm:overflow-y-scroll">
+            <div>
+              <RestaurantInfos restaurant={restaurant} />
+            </div>
           </div>
         </div>
       </div>

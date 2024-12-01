@@ -84,7 +84,7 @@ const PhotosGallery: React.FC<{ photos: Photo[] }> = ({ photos }) => {
   const itemTemplate = (item: PhotoItem) => {
     return (
       <div
-        className="w-full min-h-96 h-full bg-contain bg-no-repeat bg-center"
+        className="w-full  min-h-52 sm:min-h-96 h-full bg-contain bg-no-repeat bg-center"
         style={{ backgroundImage: `url(${item.itemImageSrc})` }}
       ></div>
     );
@@ -100,18 +100,20 @@ const PhotosGallery: React.FC<{ photos: Photo[] }> = ({ photos }) => {
   };
 
   return (
-    <div className="w-full min-h-96">
-      <Galleria
-        className="h-full block"
-        value={photoUrls}
-        responsiveOptions={responsiveOptions}
-        numVisible={5}
-        circular
-        item={itemTemplate}
-        thumbnail={thumbnailTemplate}
-        autoPlay
-        transitionInterval={4000}
-      />
+    <div className="h-full flex items-center">
+      <div className="w-full">
+        <Galleria
+          className="h-full block"
+          value={photoUrls}
+          responsiveOptions={responsiveOptions}
+          numVisible={5}
+          circular
+          item={itemTemplate}
+          thumbnail={thumbnailTemplate}
+          autoPlay
+          transitionInterval={4000}
+        />
+      </div>
     </div>
   );
 };

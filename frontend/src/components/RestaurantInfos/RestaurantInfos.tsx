@@ -28,48 +28,70 @@ export const RestaurantInfos: React.FC<{ restaurant: Restaurant }> = ({
       </div>
 
       <div className="mb-5">
-        <div className="text-sm mb-1">
-          <GoDotFill
-            className={`inline-block ${
-              restaurant.regularOpeningHours.openNow
-                ? "text-green-600"
-                : "text-red-600"
-            }`}
-          />
-          {"  "}
-          {restaurant.regularOpeningHours.openNow ? "Open now" : "Closed"}
-        </div>
+        {restaurant.regularOpeningHours ? (
+          <>
+            <div className="text-sm mb-1">
+              <GoDotFill
+                className={`inline-block ${
+                  restaurant.regularOpeningHours.openNow
+                    ? "text-green-600"
+                    : "text-red-600"
+                }`}
+              />
+              {"  "}
+              {restaurant.regularOpeningHours.openNow ? "Open now" : "Closed"}
+            </div>
 
-        <OpeningHoursRestaurant
-          periods={restaurant.regularOpeningHours.periods}
-        />
+            <OpeningHoursRestaurant
+              periods={restaurant.regularOpeningHours.periods}
+            />
+          </>
+        ) : (
+          <p className="text-sm italic">No opening hours available</p>
+        )}
       </div>
 
       <div className="mb-5">
-        <HiExternalLink className="inline-block" />
-        {"  "}
-        <a
-          href={restaurant.websiteUri}
-          target="_blank"
-          className="text-blue-700 hover:underline text-sm"
-        >
-          {restaurant.websiteUri}
-        </a>
+        {restaurant.websiteUri ? (
+          <>
+            <HiExternalLink className="inline-block" />
+            {"  "}
+            <a
+              href={restaurant.websiteUri}
+              target="_blank"
+              className="text-blue-700 hover:underline text-sm"
+            >
+              {restaurant.websiteUri}
+            </a>
+          </>
+        ) : (
+          <p className="text-sm italic">No website available</p>
+        )}
       </div>
 
-      <div className="mb-3">
-        <AccessibilityRestaurant
-          accessibilityOptions={restaurant.accessibilityOptions}
-        />
+      {restaurant.accessibilityOptions && (
+        <div className="mb-3">
+          <AccessibilityRestaurant
+            accessibilityOptions={restaurant.accessibilityOptions}
+          />
+        </div>
+      )}
+      <div>
+        {restaurant.priceLevel ? (
+          <CostRestaurant priceLevel={restaurant.priceLevel} />
+        ) : (
+          <p className="text-sm italic">No price level available</p>
+        )}
       </div>
       <div>
-        <CostRestaurant priceLevel={restaurant.priceLevel} />
-      </div>
-      <div>
-        <RatingRestaurant
-          rating={restaurant.rating}
-          userRatingCount={restaurant.userRatingCount}
-        />
+        {restaurant.rating && restaurant.userRatingCount ? (
+          <RatingRestaurant
+            rating={restaurant.rating}
+            userRatingCount={restaurant.userRatingCount}
+          />
+        ) : (
+          <p className="text-sm italic">No rating available</p>
+        )}
       </div>
     </div>
   );

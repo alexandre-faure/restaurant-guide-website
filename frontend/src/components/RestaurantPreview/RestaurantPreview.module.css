@@ -1,0 +1,13 @@
+.restaurantPreviewContainer:hover  .RestaurantPreviewImage{
+  filter:blur(0);
+}
+
+.RestaurantPreviewImage{
+  filter:blur(.2px);
+}
+
+.restaurantPreviewContainer.active{
+  transform: scale(1.05);
+  background-color:rgb(255, 240, 240);
+  border-color:rgb(200, 100, 80)
+}

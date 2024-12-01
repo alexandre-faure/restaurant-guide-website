@@ -15,6 +15,10 @@ const formatOpeningHours = (periods: Period[]) => {
   const hours = [];
   for (let i = 0; i < periods.length; i++) {
     const period = periods[i];
+    if (!period.open || !period.close) {
+      continue;
+    }
+
     const tmpOpeningHours = `${period.open.hour
       .toString()
       .padStart(2, "0")}:${period.open.minute
@@ -22,6 +26,7 @@ const formatOpeningHours = (periods: Period[]) => {
       .padStart(2, "0")} - ${period.close.hour
       .toString()
       .padStart(2, "0")}:${period.close.minute.toString().padStart(2, "0")}`;
+
     while (hours.length < period.open.day) {
       hours.push([]);
     }
@@ -30,6 +35,14 @@ const formatOpeningHours = (periods: Period[]) => {
     } else {
       hours.push([tmpOpeningHours]);
     }
+  }
+  if (hours.length === 0) {
+    for (let i = 0; i < 7; i++) {
+      hours.push(["Unknown"]);
+    }
+  }
+  while (hours.length < 7) {
+    hours.push([]);
   }
   return hours;
 };
